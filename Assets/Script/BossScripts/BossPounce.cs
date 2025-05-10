@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class BossPounce : MonoBehaviour
@@ -15,13 +14,13 @@ public class BossPounce : MonoBehaviour
     public float restDelay = 2f; // Delay before next set of pounces
 
     private Rigidbody2D playerRb;
-    private PlayerController playerController;
+    private PlayerMovement playerMovement; // <-- CHANGED
 
     private void Start()
     {
         player = GameManager.Instance.player; // Get player from GameManager
         playerRb = player.GetComponent<Rigidbody2D>();
-        playerController = player.GetComponent<PlayerController>();
+        playerMovement = player.GetComponent<PlayerMovement>(); // <-- CHANGED
 
         StartCoroutine(PounceSequence());
     }
@@ -56,9 +55,9 @@ public class BossPounce : MonoBehaviour
             Vector2 knockDirection = (player.transform.position - transform.position).normalized * -knockBackForce;
             playerRb.linearVelocity = knockDirection;
 
-            if (playerController != null)
+            if (playerMovement != null)
             {
-                playerController.enabled = false;
+                playerMovement.enabled = false; // <-- CHANGED
                 Invoke(nameof(EnablePlayerMovement), disableDuration);
             }
 
@@ -68,7 +67,7 @@ public class BossPounce : MonoBehaviour
 
     private void EnablePlayerMovement()
     {
-        if (playerController != null)
-            playerController.enabled = true;
+        if (playerMovement != null) // <-- CHANGED
+            playerMovement.enabled = true;
     }
 }

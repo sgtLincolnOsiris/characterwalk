@@ -1,34 +1,33 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class BossTrigger : MonoBehaviour
 {
-    public GameObject boss; // The Boss object
-    public Transform bossStartPosition; // Boss starting position
-    public Transform bossFightPosition; // Position where the boss should move to for the fight
-    public float moveSpeed = 2f; // Speed at which the boss moves
-    public float roarDelay = 1f; // Delay before the boss roars
-    public Animator bossAnimator; // Animator for the boss
-    public AudioSource bossAudioSource; // AudioSource for the boss
-    public AudioClip roarSound; // Roar sound for the boss
+    public GameObject boss;
+    public Transform bossStartPosition;
+    public Transform bossFightPosition;
+    public float moveSpeed = 2f;
+    public float roarDelay = 1f;
+    public Animator bossAnimator;
+    public AudioSource bossAudioSource;
+    public AudioClip roarSound;
 
     private bool playerInTrigger = false;
     private bool bossReady = false;
 
-    private GameObject player; // Reference to player
-    private PlayerController playerController; // Reference to player controller
+    private GameObject player;
+    private PlayerMovement playerMovement;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
         {
             player = collision.gameObject;
-            playerController = player.GetComponent<PlayerController>();
+            playerMovement = player.GetComponent<PlayerMovement>();
 
-            if (playerController != null)
+            if (playerMovement != null)
             {
-                playerController.enabled = false; // Disable player movement
+                playerMovement.enabled = false;
             }
 
             playerInTrigger = true;
@@ -41,10 +40,8 @@ public class BossTrigger : MonoBehaviour
     {
         if (playerInTrigger && !bossReady)
         {
-            // Move the boss towards the fight position
             boss.transform.position = Vector2.MoveTowards(boss.transform.position, bossFightPosition.position, moveSpeed * Time.deltaTime);
 
-            // Check if the boss reached the fight position
             if (Vector2.Distance(boss.transform.position, bossFightPosition.position) < 0.1f)
             {
                 playerInTrigger = false;
@@ -55,13 +52,11 @@ public class BossTrigger : MonoBehaviour
 
     IEnumerator BossRoarAndStartFight()
     {
-        // Trigger roar animation
         if (bossAnimator != null)
         {
             bossAnimator.SetTrigger("Roar");
         }
 
-        // Play roar sound
         if (bossAudioSource != null && roarSound != null)
         {
             bossAudioSource.PlayOneShot(roarSound);
@@ -70,24 +65,18 @@ public class BossTrigger : MonoBehaviour
         yield return new WaitForSeconds(roarDelay);
 
         Debug.Log("Boss is ready to fight!");
-        bossReady = true; // The fight starts
-
-        if (playerController != null)
-        {
-            playerController.enabled = true; // Re-enable player movement
-        }
+        bossReady = true; // You need to set this flag to true so the boss is ready to fight.
     }
 
-    void FlipBoss(float playerX)
+    private void FlipBoss(float playerPositionX)
     {
-        Vector3 bossScale = boss.transform.localScale;
-
-        // Flip based on player position
-        if (playerX > boss.transform.position.x)
-            bossScale.x = Mathf.Abs(bossScale.x); // Face right
+        if (playerPositionX > boss.transform.position.x)
+        {
+            boss.transform.localScale = new Vector3(1, 1, 1); // Make boss face right
+        }
         else
-            bossScale.x = -Mathf.Abs(bossScale.x); // Face left
-
-        boss.transform.localScale = bossScale;
+        {
+            boss.transform.localScale = new Vector3(-1, 1, 1); // Make boss face left
+        }
     }
 }

@@ -1,28 +1,27 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class BossChargeBackAndForth : MonoBehaviour
 {
     public GameObject player; // Reference to the player
-    public float chargeSpeed = 10f; // Speed of the boss charge
-    public float knockUpForce = 5f; // Force to knock up the player
-    public float disableDuration = 0.5f; // Duration to disable player movement
-    public int damage = 20; // Damage dealt by the charge
+    public float chargeSpeed = 10f;
+    public float knockUpForce = 5f;
+    public float disableDuration = 0.5f;
+    public int damage = 20;
 
-    public Transform pointA; // First point
-    public Transform pointB; // Second point
-    public int chargeCount = 3; // Number of charges in one set
-    public float restDelay = 2f; // Delay before next set of charges
+    public Transform pointA;
+    public Transform pointB;
+    public int chargeCount = 3;
+    public float restDelay = 2f;
 
     private Rigidbody2D playerRb;
-    private PlayerController playerController;
+    private PlayerMovement playerMovement; // CHANGED from PlayerController
 
     private void Start()
     {
-        player = GameManager.Instance.player; // Get player from GameManager
+        player = GameManager.Instance.player;
         playerRb = player.GetComponent<Rigidbody2D>();
-        playerController = player.GetComponent<PlayerController>();
+        playerMovement = player.GetComponent<PlayerMovement>(); // CHANGED
 
         StartCoroutine(ChargeBackAndForth());
     }
@@ -37,7 +36,7 @@ public class BossChargeBackAndForth : MonoBehaviour
                 yield return StartCoroutine(PerformCharge(pointB.position, pointA.position));
             }
 
-            yield return new WaitForSeconds(restDelay); // Rest before next set
+            yield return new WaitForSeconds(restDelay);
         }
     }
 
@@ -51,14 +50,13 @@ public class BossChargeBackAndForth : MonoBehaviour
             yield return null;
         }
 
-        // Deal damage and knock up player if in range
         if (playerRb != null && Vector2.Distance(transform.position, player.transform.position) < 1.5f)
         {
             playerRb.linearVelocity = new Vector2(Mathf.Sign(end.x - start.x) * 2f, knockUpForce);
 
-            if (playerController != null)
+            if (playerMovement != null)
             {
-                playerController.enabled = false; // Disable player movement
+                playerMovement.enabled = false;
                 Invoke(nameof(EnablePlayerMovement), disableDuration);
             }
 
@@ -68,7 +66,7 @@ public class BossChargeBackAndForth : MonoBehaviour
 
     private void EnablePlayerMovement()
     {
-        if (playerController != null)
-            playerController.enabled = true;
+        if (playerMovement != null)
+            playerMovement.enabled = true;
     }
 }
