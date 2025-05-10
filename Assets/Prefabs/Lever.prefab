@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6280578635159112016}
   - component: {fileID: 7105673870775722652}
-  - component: {fileID: 8263464444271195565}
+  - component: {fileID: 3373516600317785781}
   - component: {fileID: 6855194717041363580}
   m_Layer: 0
   m_Name: Lever
@@ -29,7 +29,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 69.54, y: -2.277, z: 0}
-  m_LocalScale: {x: -0.25, y: 0.25, z: 0.25}
+  m_LocalScale: {x: -0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -89,7 +89,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &8263464444271195565
+--- !u!114 &3373516600317785781
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

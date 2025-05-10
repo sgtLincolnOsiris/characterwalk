@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class WaveSurvivalMission : MonoBehaviour
 {
@@ -11,6 +12,11 @@ public class WaveSurvivalMission : MonoBehaviour
     public GameObject enemyType2Prefab; // Ranged
     public GameObject finalDoor;
     public GameObject deathDoor;
+
+    [Header("UI Settings")]
+    public Text waveText;
+    public Text enemiesAliveText;
+
     public int totalWaves = 3;
 
     private int currentWave = 0;
@@ -34,6 +40,7 @@ public class WaveSurvivalMission : MonoBehaviour
         currentWave = 0;
         finalDoor.SetActive(false);
         deathDoor.SetActive(false);
+        UpdateUI();
         StartCoroutine(WaveManager());
     }
 
@@ -44,9 +51,11 @@ public class WaveSurvivalMission : MonoBehaviour
             currentWave++;
             enemiesKilled = 0;
             SpawnEnemies();
+            UpdateUI();
 
             while (enemiesKilled < enemiesToKill)
             {
+                UpdateUI();
                 yield return null;
             }
         }
@@ -66,6 +75,7 @@ public class WaveSurvivalMission : MonoBehaviour
     public void EnemyDefeated()
     {
         enemiesKilled++;
+        UpdateUI();
     }
 
     public void PlayerDied()
@@ -83,5 +93,11 @@ public class WaveSurvivalMission : MonoBehaviour
         missionActive = false;
         finalDoor.SetActive(true);
         Debug.Log("Final Door Opened!");
+    }
+
+    void UpdateUI()
+    {
+        waveText.text = "Wave: " + currentWave + " / " + totalWaves;
+        enemiesAliveText.text = "Enemies Alive: " + (enemiesToKill - enemiesKilled);
     }
 }
