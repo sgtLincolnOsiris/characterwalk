@@ -270,6 +270,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967295
   attackDamage: 2
+  jumpSound: {fileID: 8300000, guid: 89dbcff8848ef9843b88c3a6feb4870c, type: 3}
+  attackSound: {fileID: 8300000, guid: 34b2d1808f5d27c4cbd321ee82b79c66, type: 3}
 --- !u!95 &5307167776399051234
 Animator:
   serializedVersion: 7
@@ -344,7 +346,7 @@ MonoBehaviour:
   maxHealth: 10
   healSound: {fileID: 8300000, guid: fdd25734299d62241b011fcade2fa9af, type: 3}
   deathSound: {fileID: 8300000, guid: 67820642a9ce1c64283e71ab68106561, type: 3}
-  healEffectPrefab: {fileID: 0}
+  hitSound: {fileID: 8300000, guid: bedbb79db0baab149971214bfa7897b2, type: 3}
   healthBar: {fileID: 0}
   flashColor: {r: 1, g: 0, b: 0, a: 1}
   flashDuration: 0.5

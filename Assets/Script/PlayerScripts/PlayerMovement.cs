@@ -26,13 +26,19 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] LayerMask enemyLayers;
     [SerializeField] int attackDamage = 1;
 
+    [Header("Audio")]
+    [SerializeField] AudioClip jumpSound;
+    [SerializeField] AudioClip attackSound;
+
     Rigidbody2D rb;
     Animator animator;
+    AudioSource audioSource;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     void Update()
@@ -46,6 +52,9 @@ public class PlayerMovement : MonoBehaviour
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpPower);
             jumpCount++;
             animator.SetBool("isJumping", true);
+
+            if (jumpSound && audioSource)
+                audioSource.PlayOneShot(jumpSound);
         }
 
         if (!isDashing && dashCooldownTimer <= 0f && Input.GetKeyDown(KeyCode.LeftShift))
@@ -58,7 +67,6 @@ public class PlayerMovement : MonoBehaviour
             dashCooldownTimer -= Time.deltaTime;
         }
 
-        // Melee attack when not aiming
         if (Input.GetMouseButtonDown(0))
         {
             Attack();
@@ -114,15 +122,16 @@ public class PlayerMovement : MonoBehaviour
     {
         animator.SetTrigger("attack");
 
+        if (attackSound && audioSource)
+            audioSource.PlayOneShot(attackSound);
+
         Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayers);
         foreach (Collider2D enemy in hitEnemies)
         {
-            // Check if it's an enemy
             if (enemy.TryGetComponent<EnemyHealth>(out EnemyHealth health))
             {
                 health.TakeDamage(attackDamage);
             }
-            // Check if it's a chicken
             else if (enemy.TryGetComponent<ChickenAI>(out ChickenAI chicken))
             {
                 chicken.TakeDamage(attackDamage);

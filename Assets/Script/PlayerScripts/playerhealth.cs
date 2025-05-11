@@ -12,6 +12,7 @@ public class PlayerHealth : MonoBehaviour
     [Header("Optional Feedback")]
     [SerializeField] AudioClip healSound;
     [SerializeField] AudioClip deathSound;
+    [SerializeField] AudioClip hitSound; // 🔊 Hit sound added
 
     [Header("UI")]
     public Image healthBar;
@@ -51,6 +52,11 @@ public class PlayerHealth : MonoBehaviour
         int actualLost = prevHealth - currentHealth;
 
         Debug.Log($"[Health Update] Player took {actualLost} damage. HP: {currentHealth}/{maxHealth}");
+
+        if (hitSound && audioSource)
+        {
+            audioSource.PlayOneShot(hitSound); // 🔊 Play hit sound here
+        }
 
         UpdateHealthBar();
         animator?.SetTrigger("hurt");
