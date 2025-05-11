@@ -326,7 +326,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   detectionRange: 7
-  player: {fileID: 5757542397342628000, guid: 1625c836c7de02a4fb578e05aa453fe9, type: 3}
+  player: {fileID: 4791278421606218716, guid: af2fb6f2d895f654aa338b41b18813b9, type: 3}
   projectilePrefab: {fileID: 7513221844954103639, guid: fc44e606dbcc7444ebff02362be20782, type: 3}
   firePoint: {fileID: 2078442545338007917}
   fireRate: 0.25

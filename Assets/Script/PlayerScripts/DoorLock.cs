@@ -21,7 +21,7 @@ public class DoorLock : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (triggered || other.gameObject != triggeringObject)
+        if (triggered || !other.CompareTag("Player"))
             return;
 
         triggered = true;
