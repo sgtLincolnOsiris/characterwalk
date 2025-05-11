@@ -1,13 +1,16 @@
 fileFormatVersion: 2
-guid: bbe97ceaec8e96d478e160020582c5fc
+guid: 1abceaf4233aa844780b2e0efbef7601
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -765150924802650856
-    second: arrow_0
+      213: -7832236180621730882
+    second: KN_-_LVL_02_WAVES_0
   - first:
-      213: -7451953295746623981
-    second: arrow_1
+      213: -2656290714839145725
+    second: KN_-_LVL_02_WAVES_1
+  - first:
+      213: -7788216933002026776
+    second: KN_-_LVL_02_WAVES_2
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -40,7 +43,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -78,7 +81,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -99,30 +102,17 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
-    buildTarget: Android
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: arrow_0
+      name: KN_-_LVL_02_WAVES_0
       rect:
         serializedVersion: 2
-        x: 29
-        y: 39
-        width: 301
-        height: 162
+        x: 449
+        y: 1847
+        width: 3560
+        height: 2102
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -131,20 +121,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 81d839fa943a165f0800000000000000
-      internalID: -765150924802650856
+      spriteID: ebb5411d0be4e4390800000000000000
+      internalID: -7832236180621730882
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: arrow_1
+      name: KN_-_LVL_02_WAVES_1
       rect:
         serializedVersion: 2
-        x: 241
-        y: 197
-        width: 10
-        height: 8
+        x: 5171
+        y: 1811
+        width: 3245
+        height: 1976
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -153,8 +143,30 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 316983ca5f7559890800000000000000
-      internalID: -7451953295746623981
+      spriteID: 30328d12ba5f22bd0800000000000000
+      internalID: -2656290714839145725
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: KN_-_LVL_02_WAVES_2
+      rect:
+        serializedVersion: 2
+        x: 9937
+        y: 2088
+        width: 3054
+        height: 1945
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8e06bb296f1bae390800000000000000
+      internalID: -7788216933002026776
       vertices: []
       indices: 
       edges: []
@@ -173,8 +185,9 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      arrow_0: -765150924802650856
-      arrow_1: -7451953295746623981
+      KN_-_LVL_02_WAVES_0: -7832236180621730882
+      KN_-_LVL_02_WAVES_1: -2656290714839145725
+      KN_-_LVL_02_WAVES_2: -7788216933002026776
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
