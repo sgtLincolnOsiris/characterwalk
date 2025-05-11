@@ -1,21 +1,34 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
+using System.Collections;
 
 public class PlayerHealth : MonoBehaviour
 {
     [Header("Health Settings")]
     [SerializeField] int maxHealth = 5;
     int currentHealth;
+    bool isDead = false;
 
     [Header("Optional Feedback")]
-    [SerializeField] AudioClip healSound; // Optional healing sound
-    [SerializeField] GameObject healEffectPrefab; // Optional visual effect
+    [SerializeField] AudioClip healSound;
+    [SerializeField] AudioClip deathSound;
+
+    [Header("UI")]
+    public Image healthBar;
 
     Animator animator;
     PlayerMovement movement;
     AudioSource audioSource;
-    public float health;
-    public Image healthBar;
+    SpriteRenderer spriteRenderer;
+
+    [Header("Flash Settings")]
+    [SerializeField] Color flashColor = Color.red;
+    [SerializeField] float flashDuration = 0.1f;
+
+    [Header("Pulse Settings")]
+    [SerializeField] Color pulseColor = Color.green;
+    [SerializeField] float pulseDuration = 0.5f;
+    [SerializeField] float pulseSpeed = 1f;
 
     void Start()
     {
@@ -23,16 +36,15 @@ public class PlayerHealth : MonoBehaviour
         animator = GetComponent<Animator>();
         movement = GetComponent<PlayerMovement>();
         audioSource = GetComponent<AudioSource>();
-        maxHealth = (int)health;
-    }
+        spriteRenderer = GetComponent<SpriteRenderer>();
 
-    void Update()
-    {
-        healthBar.fillAmount = Mathf.Clamp(health / maxHealth, 0, 1);
+        UpdateHealthBar();
     }
 
     public void TakeDamage(int damage)
     {
+        if (isDead) return;
+
         int prevHealth = currentHealth;
         currentHealth -= damage;
         currentHealth = Mathf.Max(currentHealth, 0);
@@ -40,7 +52,10 @@ public class PlayerHealth : MonoBehaviour
 
         Debug.Log($"[Health Update] Player took {actualLost} damage. HP: {currentHealth}/{maxHealth}");
 
+        UpdateHealthBar();
         animator?.SetTrigger("hurt");
+
+        StartCoroutine(FlashRed());
 
         if (currentHealth <= 0)
         {
@@ -48,37 +63,81 @@ public class PlayerHealth : MonoBehaviour
         }
     }
 
-    void Die()
+    IEnumerator FlashRed()
     {
-        Debug.Log("[Health Update] Player died!");
-        animator?.SetTrigger("die");
-
-        movement.enabled = false;
-        this.enabled = false;
+        if (spriteRenderer != null)
+        {
+            Color originalColor = spriteRenderer.color;
+            spriteRenderer.color = flashColor;
+            yield return new WaitForSeconds(flashDuration);
+            spriteRenderer.color = originalColor;
+        }
     }
 
     public void Heal(int amount)
     {
+        if (isDead) return;
+
         int prevHealth = currentHealth;
         currentHealth = Mathf.Min(currentHealth + amount, maxHealth);
         int healedAmount = currentHealth - prevHealth;
 
-        // Log the healing event
         Debug.Log($"[Health Update] Player healed by {healedAmount}. HP: {currentHealth}/{maxHealth}");
 
-        // Trigger heal animation
+        UpdateHealthBar();
         animator?.SetTrigger("heal");
 
-        // Optional heal effect
-        if (healEffectPrefab)
-        {
-            Instantiate(healEffectPrefab, transform.position, Quaternion.identity);
-        }
+        StartCoroutine(PulseGreen());
 
-        // Play heal sound regardless of whether healing happened
         if (healSound && audioSource)
         {
             audioSource.PlayOneShot(healSound);
+        }
+    }
+
+    IEnumerator PulseGreen()
+    {
+        if (spriteRenderer != null)
+        {
+            Color originalColor = spriteRenderer.color;
+            float elapsedTime = 0f;
+            while (elapsedTime < pulseDuration)
+            {
+                spriteRenderer.color = Color.Lerp(originalColor, pulseColor, Mathf.PingPong(elapsedTime * pulseSpeed, 1));
+                elapsedTime += Time.deltaTime;
+                yield return null;
+            }
+            spriteRenderer.color = originalColor;
+        }
+    }
+
+    void UpdateHealthBar()
+    {
+        if (healthBar != null)
+        {
+            healthBar.fillAmount = (float)currentHealth / maxHealth;
+        }
+    }
+
+    void Die()
+    {
+        if (isDead) return;
+        isDead = true;
+
+        Debug.Log("[Health Update] Player died!");
+        animator?.SetTrigger("die");
+
+        if (deathSound && audioSource)
+        {
+            audioSource.PlayOneShot(deathSound);
+        }
+
+        movement.enabled = false;
+        this.enabled = false;
+
+        if (healthBar != null)
+        {
+            Destroy(healthBar.gameObject);
         }
     }
 

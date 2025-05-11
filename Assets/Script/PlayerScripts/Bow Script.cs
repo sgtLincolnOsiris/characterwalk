@@ -1,11 +1,19 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class BowController : MonoBehaviour
 {
-    public GameObject bowObject;           // The bow GameObject
-    public GameObject arrowPrefab;         // The arrow prefab
-    public Transform firePoint;            // Where the arrow spawns from
+    public GameObject bowObject;            // The bow GameObject
+    public GameObject arrowPrefab;          // The arrow prefab
+    public Transform firePoint;             // Where the arrow spawns from
     public float arrowForce = 10f;
+
+    [Header("Cooldown Settings")]
+    public float cooldownTime = 0.5f;       // Time between shots
+    private float lastShotTime = -Mathf.Infinity;
+
+    [Header("Audio Settings")]
+    public AudioClip shootSound;            // Sound to play when shooting the bow
+    private AudioSource audioSource;        // Audio source component to play the sound
 
     private Camera mainCam;
 
@@ -13,6 +21,7 @@ public class BowController : MonoBehaviour
     {
         mainCam = Camera.main;
         bowObject.SetActive(false); // Start with bow hidden
+        audioSource = GetComponent<AudioSource>(); // Get the AudioSource component attached to the bow
     }
 
     private void Update()
@@ -29,10 +38,11 @@ public class BowController : MonoBehaviour
         {
             bowObject.SetActive(true);
 
-            // Fire arrow on LMB click
-            if (Input.GetMouseButtonDown(0)) // LMB click
+            // Fire arrow on LMB click if cooldown has passed
+            if (Input.GetMouseButtonDown(0) && Time.time >= lastShotTime + cooldownTime)
             {
                 ShootArrow(direction);
+                lastShotTime = Time.time; // Reset cooldown
             }
         }
         else
@@ -49,6 +59,12 @@ public class BowController : MonoBehaviour
         if (rb != null)
         {
             rb.linearVelocity = direction * arrowForce;
+        }
+
+        // Play the shoot sound when the arrow is fired
+        if (shootSound && audioSource)
+        {
+            audioSource.PlayOneShot(shootSound);
         }
     }
 }

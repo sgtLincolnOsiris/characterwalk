@@ -10,13 +10,19 @@ public class EnemyHealth : MonoBehaviour
     Animator animator;
     Rigidbody2D rb;
     Collider2D enemyCollider;
+    SpriteRenderer spriteRenderer;
+
+    [Header("Flash Settings")]
+    [SerializeField] Color flashColor = Color.red;
+    [SerializeField] float flashDuration = 0.1f;
 
     void Start()
     {
         currentHealth = maxHealth;
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
-        enemyCollider = GetComponent<Collider2D>(); // Cache the collider
+        enemyCollider = GetComponent<Collider2D>();
+        spriteRenderer = GetComponent<SpriteRenderer>(); // Get the SpriteRenderer
     }
 
     public void TakeDamage(int damage)
@@ -27,10 +33,22 @@ public class EnemyHealth : MonoBehaviour
         Debug.Log($"{gameObject.name} took {damage} damage. HP: {currentHealth}");
 
         animator?.SetTrigger("hurt");
+        StartCoroutine(FlashRed());
 
         if (currentHealth <= 0)
         {
             Die();
+        }
+    }
+
+    System.Collections.IEnumerator FlashRed()
+    {
+        if (spriteRenderer != null)
+        {
+            Color originalColor = spriteRenderer.color;
+            spriteRenderer.color = flashColor;
+            yield return new WaitForSeconds(flashDuration);
+            spriteRenderer.color = originalColor;
         }
     }
 
@@ -42,20 +60,18 @@ public class EnemyHealth : MonoBehaviour
         Debug.Log($"{gameObject.name} died!");
 
         rb.linearVelocity = Vector2.zero;
-        rb.bodyType = RigidbodyType2D.Kinematic; // Disable physics interaction
+        rb.bodyType = RigidbodyType2D.Kinematic;
 
-        // Stop movement and animations
         animator?.SetBool("isWalking", false);
         animator?.SetBool("isAttacking", false);
         animator?.SetTrigger("Die");
 
-        // Disable collider so player cannot interact with dead enemy
         if (enemyCollider != null)
         {
             enemyCollider.enabled = false;
         }
 
-        // Optional: Disable the AI to stop further logic
-        // GetComponent<EnemyAI>().enabled = false;
+        // Optional: Disable the AI
+        // GetComponent<EnemyAI>()?.enabled = false;
     }
 }
