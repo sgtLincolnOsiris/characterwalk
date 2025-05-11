@@ -1,17 +1,17 @@
+﻿using UnityEngine;
 using System.Collections;
-using UnityEngine;
-using UnityEngine.UI;
+
 
 public class PlayerMovement : MonoBehaviour
 {
     [Header("Movement Settings")]
     float horizontalInput;
     [SerializeField] float moveSpeed = 5f;
-    bool isFacingRight = false;
+    bool isFacingRight = true;
     [SerializeField] float jumpPower = 5f;
     bool isGrounded = false;
     int jumpCount = 0;
-    [SerializeField] int maxJumps = 5;
+    [SerializeField] int maxJumps = 2;
 
     [Header("Dash Settings")]
     [SerializeField] float dashSpeed = 50f;
@@ -26,6 +26,14 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] LayerMask enemyLayers;
     [SerializeField] int attackDamage = 1;
 
+<<<<<<< Updated upstream:Assets/scripts/PlayerMovement.cs
+=======
+    [Header("Audio")]
+    [SerializeField] AudioClip jumpSound;
+    [SerializeField] AudioClip attackSound;
+    [SerializeField] AudioClip dashSound;
+
+>>>>>>> Stashed changes:Assets/Script/PlayerScripts/PlayerMovement.cs
     Rigidbody2D rb;
     Animator animator;
 
@@ -38,9 +46,9 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         horizontalInput = Input.GetAxis("Horizontal");
-
         FlipSprite();
 
+        // Jumping
         if (!isDashing && Input.GetButtonDown("Jump") && jumpCount < maxJumps)
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpPower);
@@ -48,17 +56,23 @@ public class PlayerMovement : MonoBehaviour
             animator.SetBool("isJumping", true);
         }
 
+        // Dash
         if (!isDashing && dashCooldownTimer <= 0f && Input.GetKeyDown(KeyCode.LeftShift))
         {
             StartCoroutine(Dash());
         }
 
+        // Dash cooldown timer
         if (dashCooldownTimer > 0f)
         {
             dashCooldownTimer -= Time.deltaTime;
         }
 
+<<<<<<< Updated upstream:Assets/scripts/PlayerMovement.cs
         // Melee attack when not aiming
+=======
+        // Melee attack
+>>>>>>> Stashed changes:Assets/Script/PlayerScripts/PlayerMovement.cs
         if (Input.GetMouseButtonDown(0))
         {
             Attack();
@@ -87,7 +101,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    void OnTriggerEnter2D(Collider2D collision)
     {
         isGrounded = true;
         jumpCount = 0;
@@ -97,6 +111,10 @@ public class PlayerMovement : MonoBehaviour
     IEnumerator Dash()
     {
         isDashing = true;
+
+        if (dashSound && audioSource)
+            audioSource.PlayOneShot(dashSound);
+
         float originalGravity = rb.gravityScale;
         rb.gravityScale = 0f;
 
@@ -117,6 +135,7 @@ public class PlayerMovement : MonoBehaviour
         Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayers);
         foreach (Collider2D enemy in hitEnemies)
         {
+<<<<<<< Updated upstream:Assets/scripts/PlayerMovement.cs
             // Check if it's an enemy
             if (enemy.TryGetComponent<EnemyHealth>(out EnemyHealth health))
             {
@@ -126,6 +145,11 @@ public class PlayerMovement : MonoBehaviour
             else if (enemy.TryGetComponent<ChickenAI>(out ChickenAI chicken))
             {
                 chicken.TakeDamage(attackDamage);
+=======
+            if (enemy.CompareTag("Enemy"))
+            {
+                enemy.GetComponent<EnemyHealth>()?.TakeDamage(attackDamage);
+>>>>>>> Stashed changes:Assets/Script/PlayerScripts/PlayerMovement.cs
             }
         }
     }

@@ -1,14 +1,19 @@
 fileFormatVersion: 2
-guid: 318708e6ca2175b4c8d106fd9f02fb79
-AssetOrigin:
-  serializedVersion: 1
-  productId: 299874
-  packageName: Free 4k Parallax Vector Backgrounds
-  packageVersion: 1.1
-  assetPath: Assets/Asset1/CodeRedCat/4kVectorLandscape/Morning/CloudsM2BGMain.png
-  uploadId: 711393
+guid: 765b87ae8d809a44cadb45ed701ed8c9
 TextureImporter:
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      213: 2853566114444752598
+    second: ammo_0
+  - first:
+      213: -6741822026156145403
+    second: ammo_1
+  - first:
+      213: -6058229231348979346
+    second: ammo_2
+  - first:
+      213: -1887406100666834301
+    second: ammo_3
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -50,7 +55,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -76,7 +81,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 4096
+    maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 0
@@ -102,7 +107,7 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 4
     buildTarget: Android
-    maxTextureSize: 4096
+    maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
@@ -115,18 +120,15 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-<<<<<<< Updated upstream:Assets/Parrasset/CodeRedCat/4kVectorLandscape/Morning/CloudsM2BGMain.png.meta
-    sprites: []
-=======
     sprites:
     - serializedVersion: 2
-      name: arrow_0
+      name: ammo_0
       rect:
         serializedVersion: 2
-        x: 29
-        y: 39
+        x: 30
+        y: 0
         width: 301
-        height: 162
+        height: 280
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -135,22 +137,17 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 81d839fa943a165f0800000000000000
-      internalID: -765150924802650856
+      spriteID: 6d632922347e99720800000000000000
+      internalID: 2853566114444752598
       vertices: []
       indices: 
       edges: []
       weights: []
->>>>>>> Stashed changes:Assets/Sprites/arrow.png.meta
     outline: []
     customData: 
     physicsShape: []
     bones: []
-<<<<<<< Updated upstream:Assets/Parrasset/CodeRedCat/4kVectorLandscape/Morning/CloudsM2BGMain.png.meta
-    spriteID: 5e97eb03825dee720800000000000000
-=======
-    spriteID: 12b42b554583430448002e600705d172
->>>>>>> Stashed changes:Assets/Sprites/arrow.png.meta
+    spriteID: b9b76155888cae94e89c292af62e3b7e
     internalID: 0
     vertices: []
     indices: 
@@ -160,8 +157,10 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      arrow_0: -765150924802650856
-      arrow_1: -7451953295746623981
+      ammo_0: 2853566114444752598
+      ammo_1: -6741822026156145403
+      ammo_2: -6058229231348979346
+      ammo_3: -1887406100666834301
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

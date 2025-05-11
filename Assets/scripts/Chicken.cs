@@ -77,6 +77,8 @@ public class ChickenAI : MonoBehaviour
     {
         if (isDead) return;
 
+        Debug.Log("Chicken took damage!");
+
         currentHealth -= damage;
         animator.SetTrigger("hurt");
 
