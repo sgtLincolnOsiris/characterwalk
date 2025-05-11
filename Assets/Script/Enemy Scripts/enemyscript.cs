@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
 public class EnemyAI : MonoBehaviour
 {
@@ -16,6 +18,8 @@ public class EnemyAI : MonoBehaviour
     Animator animator;
     Transform player;
     EnemyHealth health;
+    public PlayerHealth pHealth;
+    public float damage;
 
     bool isFacingRight = true;
 
@@ -53,6 +57,7 @@ public class EnemyAI : MonoBehaviour
         attackTimer -= Time.deltaTime;
     }
 
+
     void ChasePlayer()
     {
         if (health.isDead) return;
@@ -85,6 +90,8 @@ public class EnemyAI : MonoBehaviour
 
             attackTimer = attackCooldown;
         }
+
+
     }
 
     void Flip()

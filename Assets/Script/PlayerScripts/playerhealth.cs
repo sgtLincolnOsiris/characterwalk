@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerHealth : MonoBehaviour
 {
@@ -13,6 +14,8 @@ public class PlayerHealth : MonoBehaviour
     Animator animator;
     PlayerMovement movement;
     AudioSource audioSource;
+    public float health;
+    public Image healthBar;
 
     void Start()
     {
@@ -20,6 +23,12 @@ public class PlayerHealth : MonoBehaviour
         animator = GetComponent<Animator>();
         movement = GetComponent<PlayerMovement>();
         audioSource = GetComponent<AudioSource>();
+        maxHealth = (int)health;
+    }
+
+    void Update()
+    {
+        healthBar.fillAmount = Mathf.Clamp(health / maxHealth, 0, 1);
     }
 
     public void TakeDamage(int damage)
