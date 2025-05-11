@@ -7,11 +7,11 @@ public class PlayerMovement : MonoBehaviour
     [Header("Movement Settings")]
     float horizontalInput;
     [SerializeField] float moveSpeed = 5f;
-    bool isFacingRight = false;
+    bool isFacingRight = true;
     [SerializeField] float jumpPower = 5f;
     bool isGrounded = false;
     int jumpCount = 0;
-    [SerializeField] int maxJumps = 5;
+    [SerializeField] int maxJumps = 2;
 
     [Header("Dash Settings")]
     [SerializeField] float dashSpeed = 50f;
@@ -19,6 +19,17 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float dashCooldown = 1f;
     bool isDashing = false;
     float dashCooldownTimer;
+
+    [Header("Wall Jump Settings")]
+    [SerializeField] Transform wallCheckPos;
+    [SerializeField] Vector2 wallCheckSize = new Vector2(0.5f, 0.05f);
+    [SerializeField] LayerMask wallLayer;
+    [SerializeField] float wallJumpPowerX = 5f;
+    [SerializeField] float wallJumpPowerY = 10f;
+    float wallJumpDirection;
+    bool isWallJumping;
+    [SerializeField] float wallJumpTime = 0.5f;
+    float wallJumpTimer;
 
     [Header("Melee Attack Settings")]
     [SerializeField] Transform attackPoint;
@@ -44,17 +55,19 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         horizontalInput = Input.GetAxis("Horizontal");
-
         FlipSprite();
+        ProcessWallJumpCooldown();
 
-        if (!isDashing && Input.GetButtonDown("Jump") && jumpCount < maxJumps)
+        if (!isDashing && !isWallJumping && Input.GetButtonDown("Jump") && jumpCount < maxJumps)
         {
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpPower);
-            jumpCount++;
-            animator.SetBool("isJumping", true);
-
-            if (jumpSound && audioSource)
-                audioSource.PlayOneShot(jumpSound);
+            if (WallCheck())
+            {
+                WallJump();
+            }
+            else
+            {
+                Jump();
+            }
         }
 
         if (!isDashing && dashCooldownTimer <= 0f && Input.GetKeyDown(KeyCode.LeftShift))
@@ -75,13 +88,66 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (!isDashing)
+        if (!isDashing && !isWallJumping)
         {
             rb.linearVelocity = new Vector2(horizontalInput * moveSpeed, rb.linearVelocity.y);
         }
 
         animator.SetFloat("xVelocity", Mathf.Abs(rb.linearVelocity.x));
         animator.SetFloat("yVelocity", rb.linearVelocity.y);
+    }
+
+    void Jump()
+    {
+        rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpPower);
+        jumpCount++;
+        isGrounded = false;
+        animator.SetBool("isJumping", true);
+
+        if (jumpSound && audioSource)
+            audioSource.PlayOneShot(jumpSound);
+    }
+
+    void WallJump()
+    {
+        isWallJumping = true;
+        wallJumpTimer = wallJumpTime;
+        wallJumpDirection = -transform.localScale.x;
+        rb.linearVelocity = new Vector2(wallJumpDirection * wallJumpPowerX, wallJumpPowerY);
+        animator.SetTrigger("jump");
+
+        // Force flip to face the opposite direction
+        if (transform.localScale.x != wallJumpDirection)
+        {
+            isFacingRight = !isFacingRight;
+            Vector3 ls = transform.localScale;
+            ls.x *= -1f;
+            transform.localScale = ls;
+        }
+
+        Invoke(nameof(CancelWallJump), wallJumpTime + 0.1f);
+    }
+
+    void CancelWallJump()
+    {
+        isWallJumping = false;
+    }
+
+    void ProcessWallJumpCooldown()
+    {
+        if (isWallJumping)
+        {
+            wallJumpTimer -= Time.deltaTime;
+            if (wallJumpTimer <= 0f)
+            {
+                isWallJumping = false;
+            }
+        }
+    }
+
+    bool WallCheck()
+    {
+        return Physics2D.OverlapBox(wallCheckPos.position, wallCheckSize, 0, wallLayer);
     }
 
     void FlipSprite()
@@ -132,19 +198,14 @@ public class PlayerMovement : MonoBehaviour
             {
                 health.TakeDamage(attackDamage);
             }
-            else if (enemy.TryGetComponent<ChickenAI>(out ChickenAI chicken))
-            {
-                chicken.TakeDamage(attackDamage);
-            }
         }
     }
 
     void OnDrawGizmosSelected()
     {
-        if (attackPoint != null)
-        {
-            Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(attackPoint.position, attackRange);
-        }
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(attackPoint.position, attackRange);
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireCube(wallCheckPos.position, wallCheckSize);
     }
 }

@@ -62,6 +62,7 @@ namespace CodeRedCat._4kVectorLandscape.Demo.Scripts
                 leftImage.position = new Vector3(originalTransform.position.x - _imageDistance, originalTransform.position.y, originalTransform.position.z);
                 rightImage.position = new Vector3(originalTransform.position.x + _imageDistance, originalTransform.position.y, originalTransform.position.z);
             }
+            
         }
 
         // Update is called once per frame
