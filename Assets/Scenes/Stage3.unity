@@ -46534,7 +46534,7 @@ PrefabInstance:
     - target: {fileID: 4704784258567701911, guid: 41b3657be99efe14d87b15bcce9e1358, type: 3}
       propertyPath: player
       value: 
-      objectReference: {fileID: 5757542397342628000, guid: 1625c836c7de02a4fb578e05aa453fe9, type: 3}
+      objectReference: {fileID: 773399596}
     - target: {fileID: 5046935311525162114, guid: 41b3657be99efe14d87b15bcce9e1358, type: 3}
       propertyPath: m_Name
       value: RangedEnemy (3)
@@ -46720,7 +46720,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 126.69998, y: 1.6915646, z: -10}
+  m_LocalPosition: {x: 93.43, y: 12.08, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -46800,7 +46800,7 @@ PrefabInstance:
     - target: {fileID: 4704784258567701911, guid: 41b3657be99efe14d87b15bcce9e1358, type: 3}
       propertyPath: player
       value: 
-      objectReference: {fileID: 5757542397342628000, guid: 1625c836c7de02a4fb578e05aa453fe9, type: 3}
+      objectReference: {fileID: 773399596}
     - target: {fileID: 5046935311525162114, guid: 41b3657be99efe14d87b15bcce9e1358, type: 3}
       propertyPath: m_Name
       value: RangedEnemy (2)
@@ -47459,6 +47459,11 @@ Transform:
   - {fileID: 715160993}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &773399596 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7829604150931185971, guid: af2fb6f2d895f654aa338b41b18813b9, type: 3}
+  m_PrefabInstance: {fileID: 785568280}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &785568280
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -47511,6 +47516,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7829604150931185971, guid: af2fb6f2d895f654aa338b41b18813b9, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 93.43
+      objectReference: {fileID: 0}
+    - target: {fileID: 7829604150931185971, guid: af2fb6f2d895f654aa338b41b18813b9, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 12.08
+      objectReference: {fileID: 0}
     - target: {fileID: 8819210696850861127, guid: af2fb6f2d895f654aa338b41b18813b9, type: 3}
       propertyPath: healthBar
       value: 
@@ -47518,10 +47531,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 1666055005475046030, guid: af2fb6f2d895f654aa338b41b18813b9, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1869034103}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: af2fb6f2d895f654aa338b41b18813b9, type: 3}
 --- !u!1 &815144186
 GameObject:
@@ -48619,7 +48629,7 @@ PrefabInstance:
     - target: {fileID: 4704784258567701911, guid: 41b3657be99efe14d87b15bcce9e1358, type: 3}
       propertyPath: player
       value: 
-      objectReference: {fileID: 5757542397342628000, guid: 1625c836c7de02a4fb578e05aa453fe9, type: 3}
+      objectReference: {fileID: 773399596}
     - target: {fileID: 5046935311525162114, guid: 41b3657be99efe14d87b15bcce9e1358, type: 3}
       propertyPath: m_Name
       value: RangedEnemy (1)
@@ -53298,11 +53308,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!4 &1439939627 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4791278421606218716, guid: af2fb6f2d895f654aa338b41b18813b9, type: 3}
-  m_PrefabInstance: {fileID: 785568280}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1440518554
 GameObject:
   m_ObjectHideFlags: 0
@@ -56109,7 +56114,7 @@ MonoBehaviour:
   m_StreamingVersion: 20241001
   m_LegacyPriority: 0
   Target:
-    TrackingTarget: {fileID: 1439939627}
+    TrackingTarget: {fileID: 773399596}
     LookAtTarget: {fileID: 0}
     CustomLookAtTarget: 0
   Lens:
@@ -56141,7 +56146,7 @@ Transform:
   m_GameObject: {fileID: 1598901797}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 126.7, y: -1.6, z: -10}
+  m_LocalPosition: {x: 93.43, y: 12.08, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -58223,7 +58228,7 @@ PrefabInstance:
     - target: {fileID: 4704784258567701911, guid: 41b3657be99efe14d87b15bcce9e1358, type: 3}
       propertyPath: player
       value: 
-      objectReference: {fileID: 5757542397342628000, guid: 1625c836c7de02a4fb578e05aa453fe9, type: 3}
+      objectReference: {fileID: 773399596}
     - target: {fileID: 5046935311525162114, guid: 41b3657be99efe14d87b15bcce9e1358, type: 3}
       propertyPath: m_Name
       value: RangedEnemy (4)
@@ -58277,25 +58282,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 41b3657be99efe14d87b15bcce9e1358, type: 3}
---- !u!1 &1869034094 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1666055005475046030, guid: af2fb6f2d895f654aa338b41b18813b9, type: 3}
-  m_PrefabInstance: {fileID: 785568280}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1869034103
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1869034094}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: db977acaf83bfc743926064e0a5fde0b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  respawnPosition: {x: 0, y: 0}
-  respawnDelay: 2
 --- !u!1 &1887244174
 GameObject:
   m_ObjectHideFlags: 0
@@ -82089,7 +82075,7 @@ PrefabInstance:
     - target: {fileID: 4704784258567701911, guid: 41b3657be99efe14d87b15bcce9e1358, type: 3}
       propertyPath: player
       value: 
-      objectReference: {fileID: 5757542397342628000, guid: 1625c836c7de02a4fb578e05aa453fe9, type: 3}
+      objectReference: {fileID: 773399596}
     - target: {fileID: 5046935311525162114, guid: 41b3657be99efe14d87b15bcce9e1358, type: 3}
       propertyPath: m_Name
       value: RangedEnemy

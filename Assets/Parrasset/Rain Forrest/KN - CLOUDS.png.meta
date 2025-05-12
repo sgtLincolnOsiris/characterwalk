@@ -58,7 +58,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -96,7 +96,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -137,10 +137,10 @@ TextureImporter:
       name: KN - CLOUDS_0
       rect:
         serializedVersion: 2
-        x: 634
-        y: 2682
-        width: 745
-        height: 409
+        x: 532
+        y: 2242
+        width: 10250
+        height: 1285
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -155,165 +155,11 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
-    - serializedVersion: 2
-      name: KN - CLOUDS_1
-      rect:
-        serializedVersion: 2
-        x: 1862
-        y: 2710
-        width: 61
-        height: 72
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 63a1cbd0250f6ac30800000000000000
-      internalID: 4370444723618060854
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: KN - CLOUDS_2
-      rect:
-        serializedVersion: 2
-        x: 1970
-        y: 2723
-        width: 98
-        height: 94
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 56ed0d495092c0a50800000000000000
-      internalID: 6488606267082333797
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: KN - CLOUDS_3
-      rect:
-        serializedVersion: 2
-        x: 1998
-        y: 2594
-        width: 1832
-        height: 791
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 86866002656862ee0800000000000000
-      internalID: -1286192939105097624
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: KN - CLOUDS_4
-      rect:
-        serializedVersion: 2
-        x: 4842
-        y: 2609
-        width: 488
-        height: 257
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: e98a8e6c69a6bc200800000000000000
-      internalID: 201371804162893982
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: KN - CLOUDS_5
-      rect:
-        serializedVersion: 2
-        x: 6228
-        y: 2409
-        width: 1310
-        height: 581
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: a8c7b8b1857795b10800000000000000
-      internalID: 1970737532254256266
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: KN - CLOUDS_6
-      rect:
-        serializedVersion: 2
-        x: 9892
-        y: 2575
-        width: 788
-        height: 359
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 2ecdf526c3c75fec0800000000000000
-      internalID: -3533781733811954462
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: KN - CLOUDS_7
-      rect:
-        serializedVersion: 2
-        x: 8383
-        y: 2423
-        width: 638
-        height: 246
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 8adafa3d6c5fc5350800000000000000
-      internalID: 6006946237309234600
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
     outline: []
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: cda446798c9ef3647baec7884e593bba
     internalID: 0
     vertices: []
     indices: 

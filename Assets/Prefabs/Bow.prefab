@@ -51,7 +51,7 @@ MonoBehaviour:
   firePoint: {fileID: 4649157315541236815}
   arrowForce: 50
   cooldownTime: 1
-  shootSound: {fileID: 8300000, guid: ab17677c4fae2a44993dcbb62e790c57, type: 3}
+  shootSound: {fileID: 8300000, guid: 29b6c00687e64b14eadb216228de9454, type: 3}
 --- !u!82 &6891574240250954119
 AudioSource:
   m_ObjectHideFlags: 0

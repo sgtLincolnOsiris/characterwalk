@@ -1,6 +1,5 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -40,10 +39,14 @@ public class PlayerMovement : MonoBehaviour
     [Header("Audio")]
     [SerializeField] AudioClip jumpSound;
     [SerializeField] AudioClip attackSound;
+    [SerializeField] AudioClip dashSound;
+    [SerializeField] AudioClip walkingSound;
+    [SerializeField] float stepInterval = 0.4f;
 
     Rigidbody2D rb;
     Animator animator;
     AudioSource audioSource;
+    float stepTimer = 0f;
 
     void Start()
     {
@@ -57,6 +60,8 @@ public class PlayerMovement : MonoBehaviour
         horizontalInput = Input.GetAxis("Horizontal");
         FlipSprite();
         ProcessWallJumpCooldown();
+
+        HandleWalkingSound();
 
         if (!isDashing && !isWallJumping && Input.GetButtonDown("Jump") && jumpCount < maxJumps)
         {
@@ -116,7 +121,6 @@ public class PlayerMovement : MonoBehaviour
         rb.linearVelocity = new Vector2(wallJumpDirection * wallJumpPowerX, wallJumpPowerY);
         animator.SetTrigger("jump");
 
-        // Force flip to face the opposite direction
         if (transform.localScale.x != wallJumpDirection)
         {
             isFacingRight = !isFacingRight;
@@ -174,6 +178,9 @@ public class PlayerMovement : MonoBehaviour
         float originalGravity = rb.gravityScale;
         rb.gravityScale = 0f;
 
+        if (dashSound && audioSource)
+            audioSource.PlayOneShot(dashSound);
+
         float direction = isFacingRight ? 1f : -1f;
         rb.linearVelocity = new Vector2(direction * dashSpeed, 0f);
 
@@ -198,6 +205,26 @@ public class PlayerMovement : MonoBehaviour
             {
                 health.TakeDamage(attackDamage);
             }
+        }
+    }
+
+    void HandleWalkingSound()
+    {
+        bool isMoving = Mathf.Abs(horizontalInput) > 0.1f;
+
+        if (isMoving && isGrounded)
+        {
+            stepTimer -= Time.deltaTime;
+            if (stepTimer <= 0f)
+            {
+                if (walkingSound && audioSource)
+                    audioSource.PlayOneShot(walkingSound);
+                stepTimer = stepInterval;
+            }
+        }
+        else
+        {
+            stepTimer = 0f;
         }
     }
 

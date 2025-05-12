@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyAI : MonoBehaviour
@@ -18,9 +17,6 @@ public class EnemyAI : MonoBehaviour
     Animator animator;
     Transform player;
     EnemyHealth health;
-    public PlayerHealth pHealth;
-    public float damage;
-
     bool isFacingRight = true;
 
     void Start()
@@ -33,7 +29,6 @@ public class EnemyAI : MonoBehaviour
 
     void Update()
     {
-        // Don't perform any actions if dead
         if (player == null || health.isDead) return;
 
         float distance = Vector2.Distance(transform.position, player.position);
@@ -56,7 +51,6 @@ public class EnemyAI : MonoBehaviour
 
         attackTimer -= Time.deltaTime;
     }
-
 
     void ChasePlayer()
     {
@@ -90,8 +84,6 @@ public class EnemyAI : MonoBehaviour
 
             attackTimer = attackCooldown;
         }
-
-
     }
 
     void Flip()

@@ -11,10 +11,14 @@ public class EnemyHealth : MonoBehaviour
     Rigidbody2D rb;
     Collider2D enemyCollider;
     SpriteRenderer spriteRenderer;
+    AudioSource audioSource;
 
     [Header("Flash Settings")]
     [SerializeField] Color flashColor = Color.red;
     [SerializeField] float flashDuration = 0.1f;
+
+    [Header("Audio")]
+    [SerializeField] AudioClip deathSound;
 
     void Start()
     {
@@ -22,7 +26,8 @@ public class EnemyHealth : MonoBehaviour
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
         enemyCollider = GetComponent<Collider2D>();
-        spriteRenderer = GetComponent<SpriteRenderer>(); // Get the SpriteRenderer
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        audioSource = GetComponent<AudioSource>(); // Required to play sound
     }
 
     public void TakeDamage(int damage)
@@ -71,7 +76,12 @@ public class EnemyHealth : MonoBehaviour
             enemyCollider.enabled = false;
         }
 
-        // Optional: Disable the AI
+        if (deathSound && audioSource)
+        {
+            audioSource.PlayOneShot(deathSound);
+        }
+
+        // Optional: Disable AI
         // GetComponent<EnemyAI>()?.enabled = false;
     }
 }

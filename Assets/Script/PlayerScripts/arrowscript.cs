@@ -11,11 +11,19 @@ public class Arrow : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
 
-        // Rotate to match velocity
-        RotateToVelocity();
+        // Ensure continuous collision detection to prevent tunneling
+        if (rb != null)
+        {
+            rb.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
+        }
 
-        // Destroy arrow after 30 seconds if nothing is hit
+        RotateToVelocity();
         Destroy(gameObject, arrowLifetime);
+    }
+
+    void Update()
+    {
+        RotateToVelocity();
     }
 
     void RotateToVelocity()
@@ -27,17 +35,17 @@ public class Arrow : MonoBehaviour
         }
     }
 
-    void Update()
-    {
-        // Continuously rotate to match direction
-        RotateToVelocity();
-    }
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        // Damage enemy
         if (collision.TryGetComponent<EnemyHealth>(out EnemyHealth enemy))
         {
             enemy.TakeDamage(damage);
+        }
+
+        // Destroy arrow on contact with any non-trigger object (like ground or wall)
+        if (!collision.isTrigger)
+        {
             Destroy(gameObject);
         }
     }
