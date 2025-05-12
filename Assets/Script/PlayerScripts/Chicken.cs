@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class ChickenAI : MonoBehaviour
@@ -11,11 +12,22 @@ public class ChickenAI : MonoBehaviour
     [SerializeField] float runSpeed = 5f;
     [SerializeField] float detectRange = 5f;
 
+    [Header("Heal On Death")]
+    [SerializeField] int healAmount = 1;
+
+    [Header("Audio")]
+    [SerializeField] AudioClip deathSound;
+
+    [Header("Flash Settings")]
+    [SerializeField] Color flashColor = Color.red;
+    [SerializeField] float flashDuration = 0.1f;
+
     Animator animator;
     Transform player;
     Rigidbody2D rb;
     Collider2D col;
     SpriteRenderer spriteRenderer;
+    AudioSource audioSource;
 
     void Start()
     {
@@ -24,6 +36,7 @@ public class ChickenAI : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         col = GetComponent<Collider2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        audioSource = GetComponent<AudioSource>();
         player = GameObject.FindGameObjectWithTag("Player")?.transform;
     }
 
@@ -45,26 +58,20 @@ public class ChickenAI : MonoBehaviour
 
     void RunAway()
     {
-        animator.SetBool("isRunning", true); // Switch to running animation
-
+        animator.SetBool("isRunning", true);
         Vector2 dir = (transform.position - player.position).normalized;
         rb.linearVelocity = new Vector2(dir.x * runSpeed, rb.linearVelocity.y);
 
-        // Flip sprite direction based on movement
         if (spriteRenderer != null)
-        {
             spriteRenderer.flipX = dir.x < 0f;
-        }
     }
 
     void StopRunning()
     {
-        animator.SetBool("isRunning", false); // Switch to idle animation
+        if (animator.GetBool("isRunning"))
+            animator.SetBool("isRunning", false);
 
-        if (rb.linearVelocity.x != 0f)
-        {
-            rb.linearVelocity = new Vector2(0f, rb.linearVelocity.y);
-        }
+        rb.linearVelocity = new Vector2(0f, rb.linearVelocity.y);
     }
 
     public void TakeDamage(int damage)
@@ -74,9 +81,22 @@ public class ChickenAI : MonoBehaviour
         currentHealth -= damage;
         animator.SetTrigger("hurt");
 
+        StartCoroutine(FlashRed());
+
         if (currentHealth <= 0)
         {
             Die();
+        }
+    }
+
+    IEnumerator FlashRed()
+    {
+        if (spriteRenderer != null)
+        {
+            Color originalColor = spriteRenderer.color;
+            spriteRenderer.color = flashColor;
+            yield return new WaitForSeconds(flashDuration);
+            spriteRenderer.color = originalColor;
         }
     }
 
@@ -85,14 +105,23 @@ public class ChickenAI : MonoBehaviour
         if (isDead) return;
 
         isDead = true;
-        animator.SetBool("isRunning", false); // Stop running animation
-        animator.SetTrigger("die"); // Trigger death animation
+        animator.SetBool("isRunning", false);
+        animator.SetTrigger("die");
 
         rb.linearVelocity = Vector2.zero;
         rb.bodyType = RigidbodyType2D.Kinematic;
         col.enabled = false;
 
-        Invoke(nameof(DestroySelf), 3f); // Destroy after 3 seconds
+        if (deathSound && audioSource)
+            audioSource.PlayOneShot(deathSound);
+
+        PlayerHealth playerHealth = GameObject.FindGameObjectWithTag("Player")?.GetComponent<PlayerHealth>();
+        if (playerHealth != null)
+        {
+            playerHealth.Heal(healAmount);
+        }
+
+        Invoke(nameof(DestroySelf), 3f);
     }
 
     void DestroySelf()

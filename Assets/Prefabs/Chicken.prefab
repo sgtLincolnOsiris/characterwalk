@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 1162709886063903939}
   m_Layer: 8
   m_Name: Chicken
-  m_TagString: Untagged
+  m_TagString: enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -31,7 +31,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 69.8, y: 14, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
@@ -97,17 +97,17 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.03635788, y: -0.027267933}
+  m_Offset: {x: -0.03635788, y: -0.087041855}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.2, y: 1.2}
+    oldSize: {x: 0.92, y: 1.01}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.3528366, y: 0.72004795}
+  m_Size: {x: 0.3528366, y: 0.8395958}
   m_EdgeRadius: 0
 --- !u!212 &6373022976592564549
 SpriteRenderer:
@@ -153,7 +153,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 10
-  m_Sprite: {fileID: 21300000, guid: 6fca169240bf56c4c896c10116e4671b, type: 3}
+  m_Sprite: {fileID: 2839316697585857279, guid: 8a92e76c931ab3642bc3ca902b4f1c84, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -177,8 +177,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 5
-  runSpeed: 3
+  runSpeed: 10
   detectRange: 5
+  healAmount: 5
+  deathSound: {fileID: 8300000, guid: 34b2d1808f5d27c4cbd321ee82b79c66, type: 3}
+  flashColor: {r: 1, g: 0, b: 0, a: 1}
+  flashDuration: 1
 --- !u!95 &1162709886063903939
 Animator:
   serializedVersion: 7

@@ -205,6 +205,10 @@ public class PlayerMovement : MonoBehaviour
             {
                 health.TakeDamage(attackDamage);
             }
+            else if (enemy.TryGetComponent<ChickenAI>(out ChickenAI chicken))
+            {
+                chicken.TakeDamage(attackDamage);
+            }
         }
     }
 

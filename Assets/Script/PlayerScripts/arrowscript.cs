@@ -42,6 +42,11 @@ public class Arrow : MonoBehaviour
         {
             enemy.TakeDamage(damage);
         }
+        // Damage chicken
+        else if (collision.TryGetComponent<ChickenAI>(out ChickenAI chicken))
+        {
+            chicken.TakeDamage(damage);
+        }
 
         // Destroy arrow on contact with any non-trigger object (like ground or wall)
         if (!collision.isTrigger)
