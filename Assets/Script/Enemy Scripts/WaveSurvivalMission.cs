@@ -29,12 +29,16 @@ public class WaveSurvivalMission : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
+        Debug.Log("Trigger Detected: " + other.name);
+
         if (other.CompareTag("Player") && !missionActive && !missionTriggered)
         {
+            Debug.Log("Player Detected, Mission Starting...");
             missionTriggered = true;
             StartMission();
         }
     }
+
 
     void StartMission()
     {
