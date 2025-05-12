@@ -16,8 +16,17 @@ public class RangedEnemyAI : MonoBehaviour
     private bool facingRight = true;
     private bool hasPlayedAlert = false;
 
+    EnemyHealth health;
+
+    void Start()
+    {
+        health = GetComponent<EnemyHealth>();
+        player = GameObject.FindGameObjectWithTag("Player")?.transform;
+    }
+
     void Update()
     {
+        if (player == null || health.isDead) return;
         float distanceToPlayer = Vector2.Distance(transform.position, player.position);
 
         if (distanceToPlayer <= detectionRange)
@@ -32,6 +41,7 @@ public class RangedEnemyAI : MonoBehaviour
 
     void AlertAndAttack()
     {
+        if (player == null || health.isDead) return;
         FlipTowardsPlayer();
 
         if (!hasPlayedAlert && alertSound != null)
@@ -49,6 +59,7 @@ public class RangedEnemyAI : MonoBehaviour
 
     void FlipTowardsPlayer()
     {
+        if (player == null || health.isDead) return;
         bool playerIsRight = player.position.x > transform.position.x;
 
         if (playerIsRight && !facingRight || !playerIsRight && facingRight)
@@ -62,6 +73,7 @@ public class RangedEnemyAI : MonoBehaviour
 
     void Shoot()
     {
+        if (player == null || health.isDead) return;
         if (shootSound != null)
         {
             shootSound.Play();
