@@ -125,18 +125,12 @@ TextureImporter:
       name: ammo_0
       rect:
         serializedVersion: 2
-<<<<<<< Updated upstream:Assets/Sprites/ammo.png.meta
-        x: 30
-        y: 0
-        width: 301
-=======
         x: 0
         y: 0
-        width: 360
->>>>>>> Stashed changes:Assets/Sprites/bow.png.meta
-        height: 280
+        width: 0
+        height: 0
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -153,11 +147,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-<<<<<<< Updated upstream:Assets/Sprites/ammo.png.meta
-    spriteID: b9b76155888cae94e89c292af62e3b7e
-=======
-    spriteID: 0ca661639be321d44ba05cb2824d5419
->>>>>>> Stashed changes:Assets/Sprites/bow.png.meta
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -168,9 +158,6 @@ TextureImporter:
       entries: []
     nameFileIdTable:
       ammo_0: 2853566114444752598
-      ammo_1: -6741822026156145403
-      ammo_2: -6058229231348979346
-      ammo_3: -1887406100666834301
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
