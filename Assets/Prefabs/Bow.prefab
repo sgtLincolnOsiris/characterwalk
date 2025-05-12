@@ -51,9 +51,13 @@ MonoBehaviour:
   firePoint: {fileID: 4649157315541236815}
   arrowForce: 50
   cooldownTime: 1
+<<<<<<< Updated upstream
   shootSound: {fileID: 8300000, guid: ab17677c4fae2a44993dcbb62e790c57, type: 3}
   maxAmmo: 1
   currentAmmo: 1
+=======
+  shootSound: {fileID: 8300000, guid: 8c8ff3ce11061c743b67c86b6648b4d0, type: 3}
+>>>>>>> Stashed changes
 --- !u!82 &6891574240250954119
 AudioSource:
   m_ObjectHideFlags: 0

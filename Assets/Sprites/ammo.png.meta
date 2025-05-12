@@ -125,9 +125,15 @@ TextureImporter:
       name: ammo_0
       rect:
         serializedVersion: 2
+<<<<<<< Updated upstream:Assets/Sprites/ammo.png.meta
         x: 30
         y: 0
         width: 301
+=======
+        x: 0
+        y: 0
+        width: 360
+>>>>>>> Stashed changes:Assets/Sprites/bow.png.meta
         height: 280
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -147,7 +153,11 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
+<<<<<<< Updated upstream:Assets/Sprites/ammo.png.meta
     spriteID: b9b76155888cae94e89c292af62e3b7e
+=======
+    spriteID: 0ca661639be321d44ba05cb2824d5419
+>>>>>>> Stashed changes:Assets/Sprites/bow.png.meta
     internalID: 0
     vertices: []
     indices: 

@@ -264,6 +264,14 @@ MonoBehaviour:
   dashSpeed: 20
   dashDuration: 0.2
   dashCooldown: 1
+  wallCheckPos: {fileID: 0}
+  wallCheckSize: {x: 0.5, y: 0.05}
+  wallLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  wallJumpPowerX: 5
+  wallJumpPowerY: 10
+  wallJumpTime: 0.5
   attackPoint: {fileID: 411857891458322879}
   attackRange: 1
   enemyLayers:
@@ -275,10 +283,17 @@ MonoBehaviour:
     m_Bits: 0
   attackDamage: 1
   jumpSound: {fileID: 8300000, guid: 89dbcff8848ef9843b88c3a6feb4870c, type: 3}
+<<<<<<< Updated upstream
   attackSound: {fileID: 8300000, guid: 34b2d1808f5d27c4cbd321ee82b79c66, type: 3}
   dashSound: {fileID: 8300000, guid: 5467319752e1c334382ab1bf8a39fb39, type: 3}
   currentAmmo: 0
   maxAmmo: 5
+>>>>>>> Stashed changes
+=======
+  attackSound: {fileID: 8300000, guid: c3137a576a89b91468c8c8fff88d9006, type: 3}
+  dashSound: {fileID: 8300000, guid: 9d55f2be9016b134fae9461cbab5cfaf, type: 3}
+  walkingSound: {fileID: 8300000, guid: 3443271c614c8524fa54516ee579d212, type: 3}
+  stepInterval: 0.5
 >>>>>>> Stashed changes
 --- !u!95 &5307167776399051234
 Animator:
@@ -316,7 +331,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 10
   healSound: {fileID: 8300000, guid: fdd25734299d62241b011fcade2fa9af, type: 3}
+<<<<<<< Updated upstream
   healEffectPrefab: {fileID: 0}
+=======
+  deathSound: {fileID: 8300000, guid: 41eab75ed3a964942b939a0fbff57b0b, type: 3}
+  hitSound: {fileID: 8300000, guid: bedbb79db0baab149971214bfa7897b2, type: 3}
+  healthBar: {fileID: 0}
+  flashColor: {r: 1, g: 0, b: 0, a: 1}
+  flashDuration: 0.5
+  pulseColor: {r: 0, g: 1, b: 0, a: 1}
+  pulseDuration: 3
+  pulseSpeed: 10
+>>>>>>> Stashed changes
 --- !u!82 &98683881339611947
 AudioSource:
   m_ObjectHideFlags: 0

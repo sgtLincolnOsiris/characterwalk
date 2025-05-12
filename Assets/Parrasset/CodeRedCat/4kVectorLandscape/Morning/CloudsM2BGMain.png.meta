@@ -123,10 +123,10 @@ TextureImporter:
       name: arrow_0
       rect:
         serializedVersion: 2
-        x: 29
-        y: 39
-        width: 301
-        height: 162
+        x: 0
+        y: 0
+        width: 360
+        height: 280
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -141,15 +141,22 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+<<<<<<< Updated upstream:Assets/Parrasset/CodeRedCat/4kVectorLandscape/Morning/CloudsM2BGMain.png.meta
+>>>>>>> Stashed changes:Assets/Sprites/arrow.png.meta
+=======
 >>>>>>> Stashed changes:Assets/Sprites/arrow.png.meta
     outline: []
     customData: 
     physicsShape: []
     bones: []
 <<<<<<< Updated upstream:Assets/Parrasset/CodeRedCat/4kVectorLandscape/Morning/CloudsM2BGMain.png.meta
+<<<<<<< Updated upstream:Assets/Parrasset/CodeRedCat/4kVectorLandscape/Morning/CloudsM2BGMain.png.meta
     spriteID: 5e97eb03825dee720800000000000000
 =======
     spriteID: 12b42b554583430448002e600705d172
+>>>>>>> Stashed changes:Assets/Sprites/arrow.png.meta
+=======
+    spriteID: b5fdb50a4441cac499f31a7a47c04435
 >>>>>>> Stashed changes:Assets/Sprites/arrow.png.meta
     internalID: 0
     vertices: []

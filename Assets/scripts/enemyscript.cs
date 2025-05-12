@@ -1,4 +1,9 @@
+<<<<<<< Updated upstream:Assets/scripts/enemyscript.cs
 ﻿using UnityEngine;
+=======
+﻿using System.Collections;
+using UnityEngine;
+>>>>>>> Stashed changes:Assets/Script/Enemy Scripts/enemyscript.cs
 
 public class EnemyAI : MonoBehaviour
 {
@@ -16,7 +21,10 @@ public class EnemyAI : MonoBehaviour
     Animator animator;
     Transform player;
     EnemyHealth health;
+<<<<<<< Updated upstream:Assets/scripts/enemyscript.cs
 
+=======
+>>>>>>> Stashed changes:Assets/Script/Enemy Scripts/enemyscript.cs
     bool isFacingRight = true;
 
     void Start()
@@ -29,7 +37,6 @@ public class EnemyAI : MonoBehaviour
 
     void Update()
     {
-        // Don't perform any actions if dead
         if (player == null || health.isDead) return;
 
         float distance = Vector2.Distance(transform.position, player.position);

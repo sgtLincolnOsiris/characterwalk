@@ -1,6 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
+<<<<<<< Updated upstream:Assets/scripts/PlayerMovement.cs
 
+=======
+using UnityEngine;
+>>>>>>> Stashed changes:Assets/Script/PlayerScripts/PlayerMovement.cs
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -32,10 +36,20 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] AudioClip jumpSound;
     [SerializeField] AudioClip attackSound;
     [SerializeField] AudioClip dashSound;
+<<<<<<< Updated upstream:Assets/scripts/PlayerMovement.cs
+=======
+    [SerializeField] AudioClip walkingSound;
+    [SerializeField] float stepInterval = 0.4f;
+>>>>>>> Stashed changes:Assets/Script/PlayerScripts/PlayerMovement.cs
 
 >>>>>>> Stashed changes:Assets/Script/PlayerScripts/PlayerMovement.cs
     Rigidbody2D rb;
     Animator animator;
+<<<<<<< Updated upstream:Assets/scripts/PlayerMovement.cs
+=======
+    AudioSource audioSource;
+    float stepTimer = 0f;
+>>>>>>> Stashed changes:Assets/Script/PlayerScripts/PlayerMovement.cs
 
     void Start()
     {
@@ -48,8 +62,14 @@ public class PlayerMovement : MonoBehaviour
         horizontalInput = Input.GetAxis("Horizontal");
         FlipSprite();
 
+<<<<<<< Updated upstream:Assets/scripts/PlayerMovement.cs
         // Jumping
         if (!isDashing && Input.GetButtonDown("Jump") && jumpCount < maxJumps)
+=======
+        HandleWalkingSound();
+
+        if (!isDashing && !isWallJumping && Input.GetButtonDown("Jump") && jumpCount < maxJumps)
+>>>>>>> Stashed changes:Assets/Script/PlayerScripts/PlayerMovement.cs
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpPower);
             jumpCount++;
@@ -90,6 +110,61 @@ public class PlayerMovement : MonoBehaviour
         animator.SetFloat("yVelocity", rb.linearVelocity.y);
     }
 
+<<<<<<< Updated upstream:Assets/scripts/PlayerMovement.cs
+=======
+    void Jump()
+    {
+        rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpPower);
+        jumpCount++;
+        isGrounded = false;
+        animator.SetBool("isJumping", true);
+
+        if (jumpSound && audioSource)
+            audioSource.PlayOneShot(jumpSound);
+    }
+
+    void WallJump()
+    {
+        isWallJumping = true;
+        wallJumpTimer = wallJumpTime;
+        wallJumpDirection = -transform.localScale.x;
+        rb.linearVelocity = new Vector2(wallJumpDirection * wallJumpPowerX, wallJumpPowerY);
+        animator.SetTrigger("jump");
+
+        if (transform.localScale.x != wallJumpDirection)
+        {
+            isFacingRight = !isFacingRight;
+            Vector3 ls = transform.localScale;
+            ls.x *= -1f;
+            transform.localScale = ls;
+        }
+
+        Invoke(nameof(CancelWallJump), wallJumpTime + 0.1f);
+    }
+
+    void CancelWallJump()
+    {
+        isWallJumping = false;
+    }
+
+    void ProcessWallJumpCooldown()
+    {
+        if (isWallJumping)
+        {
+            wallJumpTimer -= Time.deltaTime;
+            if (wallJumpTimer <= 0f)
+            {
+                isWallJumping = false;
+            }
+        }
+    }
+
+    bool WallCheck()
+    {
+        return Physics2D.OverlapBox(wallCheckPos.position, wallCheckSize, 0, wallLayer);
+    }
+
+>>>>>>> Stashed changes:Assets/Script/PlayerScripts/PlayerMovement.cs
     void FlipSprite()
     {
         if (horizontalInput > 0f && !isFacingRight || horizontalInput < 0f && isFacingRight)
@@ -117,6 +192,9 @@ public class PlayerMovement : MonoBehaviour
 
         float originalGravity = rb.gravityScale;
         rb.gravityScale = 0f;
+
+        if (dashSound && audioSource)
+            audioSource.PlayOneShot(dashSound);
 
         float direction = isFacingRight ? 1f : -1f;
         rb.linearVelocity = new Vector2(direction * dashSpeed, 0f);
@@ -151,6 +229,26 @@ public class PlayerMovement : MonoBehaviour
                 enemy.GetComponent<EnemyHealth>()?.TakeDamage(attackDamage);
 >>>>>>> Stashed changes:Assets/Script/PlayerScripts/PlayerMovement.cs
             }
+        }
+    }
+
+    void HandleWalkingSound()
+    {
+        bool isMoving = Mathf.Abs(horizontalInput) > 0.1f;
+
+        if (isMoving && isGrounded)
+        {
+            stepTimer -= Time.deltaTime;
+            if (stepTimer <= 0f)
+            {
+                if (walkingSound && audioSource)
+                    audioSource.PlayOneShot(walkingSound);
+                stepTimer = stepInterval;
+            }
+        }
+        else
+        {
+            stepTimer = 0f;
         }
     }
 
