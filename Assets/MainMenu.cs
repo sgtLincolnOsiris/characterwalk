@@ -3,8 +3,16 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
-    public void PlayGame()
+
+    public void QuitGame()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        Debug.Log("Game has Quit!");
+        Application.Quit();
+    }
+
+
+    public void LoadLevelByIndex(int levelIndex)
+    {
+        SceneManager.LoadScene(levelIndex);
     }
 }
