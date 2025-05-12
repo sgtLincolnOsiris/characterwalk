@@ -506,6 +506,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bow
       objectReference: {fileID: 0}
+    - target: {fileID: 2385410815513045037, guid: 3f398f71f43ae7846b1884336fa74528, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3010986163699896973, guid: 3f398f71f43ae7846b1884336fa74528, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3417808303119226103, guid: 3f398f71f43ae7846b1884336fa74528, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3642684568420545211, guid: 3f398f71f43ae7846b1884336fa74528, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.28405

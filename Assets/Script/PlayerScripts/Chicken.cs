@@ -11,9 +11,6 @@ public class ChickenAI : MonoBehaviour
     [SerializeField] float runSpeed = 5f;
     [SerializeField] float detectRange = 5f;
 
-    [Header("Heal On Death")]
-    [SerializeField] int healAmount = 1;
-
     Animator animator;
     Transform player;
     Rigidbody2D rb;
@@ -48,7 +45,7 @@ public class ChickenAI : MonoBehaviour
 
     void RunAway()
     {
-        animator.SetBool("isRunning", true);
+        animator.SetBool("isRunning", true); // Switch to running animation
 
         Vector2 dir = (transform.position - player.position).normalized;
         rb.linearVelocity = new Vector2(dir.x * runSpeed, rb.linearVelocity.y);
@@ -62,10 +59,7 @@ public class ChickenAI : MonoBehaviour
 
     void StopRunning()
     {
-        if (animator.GetBool("isRunning"))
-        {
-            animator.SetBool("isRunning", false);
-        }
+        animator.SetBool("isRunning", false); // Switch to idle animation
 
         if (rb.linearVelocity.x != 0f)
         {
@@ -91,21 +85,14 @@ public class ChickenAI : MonoBehaviour
         if (isDead) return;
 
         isDead = true;
-        animator.SetBool("isRunning", false);
-        animator.SetTrigger("die");
+        animator.SetBool("isRunning", false); // Stop running animation
+        animator.SetTrigger("die"); // Trigger death animation
 
         rb.linearVelocity = Vector2.zero;
         rb.bodyType = RigidbodyType2D.Kinematic;
         col.enabled = false;
 
-        // Heal player
-        PlayerHealth playerHealth = GameObject.FindGameObjectWithTag("Player")?.GetComponent<PlayerHealth>();
-        if (playerHealth != null)
-        {
-            playerHealth.Heal(healAmount);
-        }
-
-        Invoke(nameof(DestroySelf), 3f);
+        Invoke(nameof(DestroySelf), 3f); // Destroy after 3 seconds
     }
 
     void DestroySelf()
