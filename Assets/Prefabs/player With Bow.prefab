@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 4702042221738275074}
   - component: {fileID: 4972801760678732047}
   - component: {fileID: 8839097017017559185}
+  - component: {fileID: 6077668405151656716}
   m_Layer: 0
   m_Name: player With Bow
   m_TagString: Player
@@ -347,6 +348,20 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &6077668405151656716
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 64729274701679645}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db977acaf83bfc743926064e0a5fde0b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  respawnPosition: {x: 0, y: 0}
+  respawnDelay: 2
 --- !u!1 &907461383132189172
 GameObject:
   m_ObjectHideFlags: 0

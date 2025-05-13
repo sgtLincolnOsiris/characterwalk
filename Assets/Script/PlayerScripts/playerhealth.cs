@@ -12,10 +12,11 @@ public class PlayerHealth : MonoBehaviour
     [Header("Optional Feedback")]
     [SerializeField] AudioClip healSound;
     [SerializeField] AudioClip deathSound;
-    [SerializeField] AudioClip hitSound; // 🔊 Hit sound added
+    [SerializeField] AudioClip hitSound;
 
     [Header("UI")]
     public Image healthBar;
+    public DeathMenuManager deathMenuManager; // Add reference to DeathMenuManager
 
     Animator animator;
     PlayerMovement movement;
@@ -55,12 +56,11 @@ public class PlayerHealth : MonoBehaviour
 
         if (hitSound && audioSource)
         {
-            audioSource.PlayOneShot(hitSound); // 🔊 Play hit sound here
+            audioSource.PlayOneShot(hitSound);
         }
 
         UpdateHealthBar();
         animator?.SetTrigger("hurt");
-
         StartCoroutine(FlashRed());
 
         if (currentHealth <= 0)
@@ -139,12 +139,21 @@ public class PlayerHealth : MonoBehaviour
         }
 
         movement.enabled = false;
-        this.enabled = false;
 
         if (healthBar != null)
         {
             Destroy(healthBar.gameObject);
         }
+
+        // Delay death menu by 2 seconds (unscaled time in case time is frozen)
+        StartCoroutine(ShowDeathMenuAfterDelay(2f));
+    }
+
+    private IEnumerator ShowDeathMenuAfterDelay(float delay)
+    {
+        yield return new WaitForSecondsRealtime(delay);
+        deathMenuManager?.ShowDeathMenu();
+        this.enabled = false; // Disable PlayerHealth after death menu shows
     }
 
     public int GetCurrentHealth() => currentHealth;
