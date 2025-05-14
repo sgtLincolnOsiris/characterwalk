@@ -144,7 +144,7 @@ VideoPlayer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1174152586}
   m_Enabled: 1
-  m_VideoClip: {fileID: 32900000, guid: 624afd0d53fba494d8dc01d70e1f9a14, type: 3}
+  m_VideoClip: {fileID: 32900000, guid: 98834d25ee80bcc4ab5d2eb257e3f982, type: 3}
   m_TargetCameraAlpha: 1
   m_TargetCamera3DLayout: 0
   m_TargetCamera: {fileID: 0}
@@ -181,7 +181,7 @@ Transform:
   m_GameObject: {fileID: 1174152586}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -670.07745, y: -536.6639, z: 1.2985431}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -333,7 +333,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6cd12a1006f080489cbe73e38dc1895, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneToLoad: Stage1
+  sceneToLoad: Stage 2
 --- !u!1 &1707594551
 GameObject:
   m_ObjectHideFlags: 0
@@ -497,7 +497,7 @@ RectTransform:
   m_GameObject: {fileID: 1804392287}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 19.21, y: 11.8, z: 0}
+  m_LocalScale: {x: 19.21, y: 11, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2034439540}
@@ -876,7 +876,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   videoPlayer: {fileID: 1174152587}
-  nextSceneName: Stage1
+  nextSceneName: Stage 2
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

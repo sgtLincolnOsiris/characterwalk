@@ -313,7 +313,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 3
   flashColor: {r: 1, g: 0, b: 0, a: 1}
-  flashDuration: 0.5
+  flashDuration: 0.1
   deathSound: {fileID: 8300000, guid: 34b2d1808f5d27c4cbd321ee82b79c66, type: 3}
 --- !u!114 &4704784258567701911
 MonoBehaviour:
@@ -327,7 +327,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab57aa41f18634f469ccc4354aa3b2eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  detectionRange: 7
+  detectionRange: 15
   player: {fileID: 7829604150931185971, guid: af2fb6f2d895f654aa338b41b18813b9, type: 3}
   projectilePrefab: {fileID: 7513221844954103639, guid: fc44e606dbcc7444ebff02362be20782, type: 3}
   firePoint: {fileID: 2078442545338007917}

@@ -246,6 +246,7 @@ MonoBehaviour:
   deathSound: {fileID: 8300000, guid: da62c39c2edcef64dbad56b79286ad8a, type: 3}
   hitSound: {fileID: 8300000, guid: bedbb79db0baab149971214bfa7897b2, type: 3}
   healthBar: {fileID: 0}
+  deathMenuManager: {fileID: 0}
   flashColor: {r: 1, g: 0, b: 0, a: 1}
   flashDuration: 0.5
   pulseColor: {r: 0, g: 1, b: 0, a: 1}

@@ -36,6 +36,10 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] LayerMask enemyLayers;
     [SerializeField] int attackDamage = 1;
 
+    [Header("Arrow Settings")]
+    [SerializeField] int maxArrows = 10;
+    int currentArrows = 0;
+
     [Header("Audio")]
     [SerializeField] AudioClip jumpSound;
     [SerializeField] AudioClip attackSound;
@@ -156,7 +160,7 @@ public class PlayerMovement : MonoBehaviour
 
     void FlipSprite()
     {
-        if (horizontalInput > 0f && !isFacingRight || horizontalInput < 0f && isFacingRight)
+        if ((horizontalInput > 0f && !isFacingRight) || (horizontalInput < 0f && isFacingRight))
         {
             isFacingRight = !isFacingRight;
             Vector3 ls = transform.localScale;
@@ -238,5 +242,28 @@ public class PlayerMovement : MonoBehaviour
         Gizmos.DrawWireSphere(attackPoint.position, attackRange);
         Gizmos.color = Color.blue;
         Gizmos.DrawWireCube(wallCheckPos.position, wallCheckSize);
+    }
+
+    // ---- Arrow Methods ----
+
+    public void AddArrows(int amount)
+    {
+        currentArrows = Mathf.Clamp(currentArrows + amount, 0, maxArrows);
+    }
+
+    public bool HasArrows()
+    {
+        return currentArrows > 0;
+    }
+
+    public void UseArrow()
+    {
+        if (currentArrows > 0)
+            currentArrows--;
+    }
+
+    public int GetArrowCount()
+    {
+        return currentArrows;
     }
 }

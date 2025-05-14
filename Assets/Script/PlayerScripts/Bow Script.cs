@@ -2,47 +2,60 @@
 
 public class BowController : MonoBehaviour
 {
-    public GameObject bowObject;            // The bow GameObject
-    public GameObject arrowPrefab;          // The arrow prefab
-    public Transform firePoint;             // Where the arrow spawns from
+    public GameObject bowObject;
+    public GameObject arrowPrefab;
+    public Transform firePoint;
     public float arrowForce = 10f;
 
     [Header("Cooldown Settings")]
-    public float cooldownTime = 0.5f;       // Time between shots
+    public float cooldownTime = 0.5f;
     private float lastShotTime = -Mathf.Infinity;
 
     [Header("Audio Settings")]
-    public AudioClip shootSound;            // Sound to play when shooting the bow
-    private AudioSource audioSource;        // Audio source component to play the sound
+    public AudioClip shootSound;
+    private AudioSource audioSource;
+
+    [Header("Player Reference")]
+    public Transform player; // Assign in Inspector
+    private PlayerMovement playerMovement;
 
     private Camera mainCam;
 
     private void Start()
     {
         mainCam = Camera.main;
-        bowObject.SetActive(false); // Start with bow hidden
-        audioSource = GetComponent<AudioSource>(); // Get the AudioSource component attached to the bow
+        bowObject.SetActive(false);
+        audioSource = GetComponent<AudioSource>();
+
+        if (player != null)
+            playerMovement = player.GetComponent<PlayerMovement>();
     }
 
     private void Update()
     {
+        if (player != null)
+        {
+            bowObject.transform.position = player.position;
+        }
+
         Vector3 mousePos = mainCam.ScreenToWorldPoint(Input.mousePosition);
         Vector2 direction = (mousePos - bowObject.transform.position).normalized;
 
-        // Aim bow toward the mouse
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         bowObject.transform.rotation = Quaternion.Euler(0, 0, angle);
 
-        // Show or hide bow when holding RMB
-        if (Input.GetMouseButton(1)) // RMB held
+        if (Input.GetMouseButton(1))
         {
             bowObject.SetActive(true);
 
-            // Fire arrow on LMB click if cooldown has passed
             if (Input.GetMouseButtonDown(0) && Time.time >= lastShotTime + cooldownTime)
             {
-                ShootArrow(direction);
-                lastShotTime = Time.time; // Reset cooldown
+                if (playerMovement != null && playerMovement.HasArrows())
+                {
+                    ShootArrow(direction);
+                    playerMovement.UseArrow();
+                    lastShotTime = Time.time;
+                }
             }
         }
         else
@@ -61,7 +74,6 @@ public class BowController : MonoBehaviour
             rb.linearVelocity = direction * arrowForce;
         }
 
-        // Play the shoot sound when the arrow is fired
         if (shootSound && audioSource)
         {
             audioSource.PlayOneShot(shootSound);

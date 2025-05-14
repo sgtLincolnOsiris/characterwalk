@@ -17,10 +17,11 @@ public class PlayerHealth : MonoBehaviour
 
     [Header("UI")]
     public Image healthBar;
-    public DeathMenuManager deathMenuManager; // Add reference to DeathMenuManager
+    public DeathMenuManager deathMenuManager;
 
     Animator animator;
     PlayerMovement movement;
+    PlayerRespawn respawn;
     AudioSource audioSource;
     SpriteRenderer spriteRenderer;
 
@@ -33,6 +34,10 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] float pulseDuration = 0.5f;
     [SerializeField] float pulseSpeed = 1f;
 
+    // Coroutine references for damage and heal effects
+    Coroutine flashCoroutine;
+    Coroutine pulseCoroutine;
+
     void Start()
     {
         currentHealth = maxHealth;
@@ -41,6 +46,7 @@ public class PlayerHealth : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         rb = GetComponent<Rigidbody2D>();
+        respawn = GetComponent<PlayerRespawn>();
 
         UpdateHealthBar();
     }
@@ -50,20 +56,20 @@ public class PlayerHealth : MonoBehaviour
         if (isDead) return;
 
         int prevHealth = currentHealth;
-        currentHealth -= damage;
-        currentHealth = Mathf.Max(currentHealth, 0);
+        currentHealth = Mathf.Max(currentHealth - damage, 0);
         int actualLost = prevHealth - currentHealth;
 
         Debug.Log($"[Health Update] Player took {actualLost} damage. HP: {currentHealth}/{maxHealth}");
 
         if (hitSound && audioSource)
-        {
             audioSource.PlayOneShot(hitSound);
-        }
 
         UpdateHealthBar();
         animator?.SetTrigger("hurt");
-        StartCoroutine(FlashRed());
+
+        // Stop any ongoing flash effect and start a new one
+        if (flashCoroutine != null) StopCoroutine(flashCoroutine);
+        flashCoroutine = StartCoroutine(FlashRed());
 
         if (currentHealth <= 0)
         {
@@ -75,7 +81,7 @@ public class PlayerHealth : MonoBehaviour
     {
         if (rb != null)
         {
-            rb.linearVelocity = Vector2.zero; // Reset velocity before applying knockback
+            rb.linearVelocity = Vector2.zero;
             rb.AddForce(force, ForceMode2D.Impulse);
         }
     }
@@ -85,9 +91,9 @@ public class PlayerHealth : MonoBehaviour
         if (spriteRenderer != null)
         {
             Color originalColor = spriteRenderer.color;
-            spriteRenderer.color = flashColor;
+            spriteRenderer.color = flashColor; // Flash red
             yield return new WaitForSeconds(flashDuration);
-            spriteRenderer.color = originalColor;
+            spriteRenderer.color = originalColor; // Reset color
         }
     }
 
@@ -104,12 +110,12 @@ public class PlayerHealth : MonoBehaviour
         UpdateHealthBar();
         animator?.SetTrigger("heal");
 
-        StartCoroutine(PulseGreen());
+        // Stop any ongoing pulse effect and start a new one
+        if (pulseCoroutine != null) StopCoroutine(pulseCoroutine);
+        pulseCoroutine = StartCoroutine(PulseGreen());
 
         if (healSound && audioSource)
-        {
             audioSource.PlayOneShot(healSound);
-        }
     }
 
     IEnumerator PulseGreen()
@@ -120,11 +126,12 @@ public class PlayerHealth : MonoBehaviour
             float elapsedTime = 0f;
             while (elapsedTime < pulseDuration)
             {
+                // Pulse effect (smooth color change)
                 spriteRenderer.color = Color.Lerp(originalColor, pulseColor, Mathf.PingPong(elapsedTime * pulseSpeed, 1));
                 elapsedTime += Time.deltaTime;
                 yield return null;
             }
-            spriteRenderer.color = originalColor;
+            spriteRenderer.color = originalColor; // Reset color after pulse
         }
     }
 
@@ -145,26 +152,44 @@ public class PlayerHealth : MonoBehaviour
         animator?.SetTrigger("die");
 
         if (deathSound && audioSource)
-        {
             audioSource.PlayOneShot(deathSound);
-        }
 
         movement.enabled = false;
 
         if (healthBar != null)
         {
-            Destroy(healthBar.gameObject);
+            healthBar.gameObject.SetActive(false); // Hide, don't destroy
         }
 
-        // Delay death menu by 2 seconds (unscaled time in case time is frozen)
         StartCoroutine(ShowDeathMenuAfterDelay(2f));
     }
 
-    private IEnumerator ShowDeathMenuAfterDelay(float delay)
+    IEnumerator ShowDeathMenuAfterDelay(float delay)
     {
         yield return new WaitForSecondsRealtime(delay);
         deathMenuManager?.ShowDeathMenu();
-        this.enabled = false; // Disable PlayerHealth after death menu shows
+        this.enabled = false;
+    }
+
+    public void ResetHealth()
+    {
+        isDead = false;
+        currentHealth = maxHealth;
+
+        if (healthBar != null)
+        {
+            healthBar.gameObject.SetActive(true); // Reactivate UI
+        }
+
+        UpdateHealthBar();
+
+        this.enabled = true;
+        movement.enabled = true;
+
+        animator?.ResetTrigger("die");
+        animator?.SetBool("IsDead", false); // Optional: in case you're using a bool
+
+        Debug.Log("[Health Update] Player health reset.");
     }
 
     public int GetCurrentHealth() => currentHealth;
