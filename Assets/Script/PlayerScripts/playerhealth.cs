@@ -10,6 +10,11 @@ public class PlayerHealth : MonoBehaviour
     private Rigidbody2D rb;
     bool isDead = false;
 
+    // Property version (use as playerHealth.IsDead)
+
+    // Method version (use as playerHealth.IsDead())
+    public bool IsDead() => isDead;
+
     [Header("Optional Feedback")]
     [SerializeField] AudioClip healSound;
     [SerializeField] AudioClip deathSound;
@@ -17,7 +22,7 @@ public class PlayerHealth : MonoBehaviour
 
     [Header("UI")]
     public Image healthBar;
-    public DeathMenuManager deathMenuManager; // Add reference to DeathMenuManager
+    public DeathMenuManager deathMenuManager;
 
     Animator animator;
     PlayerMovement movement;
@@ -75,7 +80,7 @@ public class PlayerHealth : MonoBehaviour
     {
         if (rb != null)
         {
-            rb.linearVelocity = Vector2.zero; // Reset velocity before applying knockback
+            rb.linearVelocity = Vector2.zero;
             rb.AddForce(force, ForceMode2D.Impulse);
         }
     }
@@ -156,7 +161,6 @@ public class PlayerHealth : MonoBehaviour
             Destroy(healthBar.gameObject);
         }
 
-        // Delay death menu by 2 seconds (unscaled time in case time is frozen)
         StartCoroutine(ShowDeathMenuAfterDelay(2f));
     }
 
@@ -164,7 +168,7 @@ public class PlayerHealth : MonoBehaviour
     {
         yield return new WaitForSecondsRealtime(delay);
         deathMenuManager?.ShowDeathMenu();
-        this.enabled = false; // Disable PlayerHealth after death menu shows
+        this.enabled = false;
     }
 
     public int GetCurrentHealth() => currentHealth;
