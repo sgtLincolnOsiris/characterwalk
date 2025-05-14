@@ -102,7 +102,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetToDisable: {fileID: 0}
-  triggerSound: {fileID: 0}
+  triggerSound: {fileID: 8300000, guid: 8d18ec726a3f18746a5d94d6de1ee10e, type: 3}
 --- !u!61 &6855194717041363580
 BoxCollider2D:
   m_ObjectHideFlags: 0

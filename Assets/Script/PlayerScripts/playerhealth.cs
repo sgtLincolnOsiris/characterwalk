@@ -7,6 +7,7 @@ public class PlayerHealth : MonoBehaviour
     [Header("Health Settings")]
     [SerializeField] int maxHealth = 5;
     int currentHealth;
+    private Rigidbody2D rb;
     bool isDead = false;
 
     [Header("Optional Feedback")]
@@ -39,6 +40,7 @@ public class PlayerHealth : MonoBehaviour
         movement = GetComponent<PlayerMovement>();
         audioSource = GetComponent<AudioSource>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        rb = GetComponent<Rigidbody2D>();
 
         UpdateHealthBar();
     }
@@ -66,6 +68,15 @@ public class PlayerHealth : MonoBehaviour
         if (currentHealth <= 0)
         {
             Die();
+        }
+    }
+
+    public void ApplyKnockback(Vector2 force)
+    {
+        if (rb != null)
+        {
+            rb.linearVelocity = Vector2.zero; // Reset velocity before applying knockback
+            rb.AddForce(force, ForceMode2D.Impulse);
         }
     }
 
