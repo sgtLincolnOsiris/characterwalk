@@ -14,15 +14,24 @@ public class BossHealth : MonoBehaviour
     [SerializeField] private GameObject[] activateOnDeath; // Objects to enable
     [SerializeField] private GameObject[] deactivateOnDeath; // Objects to disable
 
+    [Header("Flash Settings")]
+    [SerializeField] Color flashColor = Color.red;
+    [SerializeField] float flashDuration = 0.1f;
+
     [Header("Visuals")]
-    [SerializeField] private Slider healthSlider;
     [SerializeField] private GameObject healthBarUI;
     [SerializeField] private GameObject deathEffect;
+    [SerializeField] public Image healthBar;
+
 
     [Header("Sound Effects")]
     [SerializeField] private AudioClip damageSound;
     [SerializeField] private AudioClip deathSound;
+    [SerializeField] AudioClip hitSound;
     private AudioSource audioSource;
+    Animator animator;
+    Coroutine flashCoroutine;
+    SpriteRenderer spriteRenderer;
 
     private int currentHealth;
     private bool isDead = false;
@@ -30,29 +39,30 @@ public class BossHealth : MonoBehaviour
     private void Start()
     {
         currentHealth = maxHealth;
+        animator = GetComponent<Animator>();
         audioSource = GetComponent<AudioSource>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
 
-        if (healthSlider != null)
-        {
-            healthSlider.maxValue = maxHealth;
-            healthSlider.value = currentHealth;
-            healthBarUI.SetActive(false);
-        }
     }
 
     public void TakeDamage(int damage)
     {
         if (isDead) return;
 
-        currentHealth -= damage;
-        currentHealth = Mathf.Max(0, currentHealth);
+        int prevHealth = currentHealth;
+        currentHealth = Mathf.Max(currentHealth - damage, 0);
+        int actualLost = prevHealth - currentHealth;
 
-        // Update UI
-        if (healthSlider != null)
-        {
-            healthSlider.value = currentHealth;
-            healthBarUI.SetActive(true);
-        }
+        Debug.Log($"[Health Update] Player took {actualLost} damage. HP: {currentHealth}/{maxHealth}");
+
+        if (hitSound && audioSource)
+            audioSource.PlayOneShot(hitSound);
+
+        UpdateHealthBar();
+        animator?.SetTrigger("hurt");
+
+        if (flashCoroutine != null) StopCoroutine(flashCoroutine);
+        flashCoroutine = StartCoroutine(FlashRed());
 
         // Play damage sound
         if (damageSound != null && audioSource != null)
@@ -63,6 +73,25 @@ public class BossHealth : MonoBehaviour
         if (currentHealth <= 0)
         {
             StartCoroutine(DieWithDelay());
+        }
+    }
+
+    IEnumerator FlashRed()
+    {
+        if (spriteRenderer != null)
+        {
+            Color originalColor = spriteRenderer.color;
+            spriteRenderer.color = flashColor;
+            yield return new WaitForSeconds(flashDuration);
+            spriteRenderer.color = originalColor;
+        }
+    }
+
+    void UpdateHealthBar()
+    {
+        if (healthBar != null)
+        {
+            healthBar.fillAmount = (float)currentHealth / maxHealth;
         }
     }
 
@@ -99,10 +128,10 @@ public class BossHealth : MonoBehaviour
             if (obj != null) obj.SetActive(false);
         }
 
+        animator.SetTrigger("Death");
         // Wait before destroying
         yield return new WaitForSeconds(deathDelay);
-
-        Destroy(gameObject);
+      
     }
 
     public bool IsDead() => isDead;

@@ -67,7 +67,6 @@ public class PlayerHealth : MonoBehaviour
         UpdateHealthBar();
         animator?.SetTrigger("hurt");
 
-        // Stop any ongoing flash effect and start a new one
         if (flashCoroutine != null) StopCoroutine(flashCoroutine);
         flashCoroutine = StartCoroutine(FlashRed());
 
@@ -91,9 +90,9 @@ public class PlayerHealth : MonoBehaviour
         if (spriteRenderer != null)
         {
             Color originalColor = spriteRenderer.color;
-            spriteRenderer.color = flashColor; // Flash red
+            spriteRenderer.color = flashColor;
             yield return new WaitForSeconds(flashDuration);
-            spriteRenderer.color = originalColor; // Reset color
+            spriteRenderer.color = originalColor;
         }
     }
 
@@ -110,7 +109,6 @@ public class PlayerHealth : MonoBehaviour
         UpdateHealthBar();
         animator?.SetTrigger("heal");
 
-        // Stop any ongoing pulse effect and start a new one
         if (pulseCoroutine != null) StopCoroutine(pulseCoroutine);
         pulseCoroutine = StartCoroutine(PulseGreen());
 
@@ -126,12 +124,11 @@ public class PlayerHealth : MonoBehaviour
             float elapsedTime = 0f;
             while (elapsedTime < pulseDuration)
             {
-                // Pulse effect (smooth color change)
                 spriteRenderer.color = Color.Lerp(originalColor, pulseColor, Mathf.PingPong(elapsedTime * pulseSpeed, 1));
                 elapsedTime += Time.deltaTime;
                 yield return null;
             }
-            spriteRenderer.color = originalColor; // Reset color after pulse
+            spriteRenderer.color = originalColor;
         }
     }
 
@@ -158,7 +155,7 @@ public class PlayerHealth : MonoBehaviour
 
         if (healthBar != null)
         {
-            healthBar.gameObject.SetActive(false); // Hide, don't destroy
+            healthBar.gameObject.SetActive(false);
         }
 
         StartCoroutine(ShowDeathMenuAfterDelay(2f));
@@ -178,7 +175,7 @@ public class PlayerHealth : MonoBehaviour
 
         if (healthBar != null)
         {
-            healthBar.gameObject.SetActive(true); // Reactivate UI
+            healthBar.gameObject.SetActive(true);
         }
 
         UpdateHealthBar();
@@ -187,11 +184,17 @@ public class PlayerHealth : MonoBehaviour
         movement.enabled = true;
 
         animator?.ResetTrigger("die");
-        animator?.SetBool("IsDead", false); // Optional: in case you're using a bool
+        animator?.SetBool("IsDead", false);
 
         Debug.Log("[Health Update] Player health reset.");
     }
 
     public int GetCurrentHealth() => currentHealth;
     public int GetMaxHealth() => maxHealth;
+
+    // ✅ Add this method to allow external scripts to check death status
+    public bool IsDead()
+    {
+        return isDead;
+    }
 }

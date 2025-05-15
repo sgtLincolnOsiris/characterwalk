@@ -94,6 +94,7 @@ public class ChargingEnemy : MonoBehaviour
             yield return new WaitUntil(() => !isCharging);
 
             // --- REST PHASE ---
+            animator.SetTrigger("Idle");
             FlipSpriteToFace(targetPosition);
             yield return new WaitForSeconds(restDuration);
 
@@ -112,6 +113,7 @@ public class ChargingEnemy : MonoBehaviour
             yield return new WaitUntil(() => !isCharging);
 
             // --- REST PHASE ---
+            animator.SetTrigger("Idle");
             FlipSpriteToFace(targetPosition);
             yield return new WaitForSeconds(restDuration);
         }

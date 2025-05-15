@@ -106,7 +106,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 3
-  chaseRange: 5
+  chaseRange: 20
   attackRange: 1.98
   attackCooldown: 1
   attackDamage: 1
@@ -124,7 +124,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 3
   flashColor: {r: 1, g: 0, b: 0, a: 1}
-  flashDuration: 0.5
+  flashDuration: 0.1
   deathSound: {fileID: 8300000, guid: 34b2d1808f5d27c4cbd321ee82b79c66, type: 3}
 --- !u!50 &7250030470983460343
 Rigidbody2D:

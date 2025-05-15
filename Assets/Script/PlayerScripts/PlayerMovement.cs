@@ -213,6 +213,10 @@ public class PlayerMovement : MonoBehaviour
             {
                 chicken.TakeDamage(attackDamage);
             }
+            else if (enemy.TryGetComponent<BossHealth>(out BossHealth Nian))
+            {
+                Nian.TakeDamage(attackDamage);
+            }
         }
     }
 
